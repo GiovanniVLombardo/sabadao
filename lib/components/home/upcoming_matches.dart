@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sabadao/components/matches/match_card.dart';
 import 'package:sabadao/controllers/user_controller.dart';
 import 'package:sabadao/models/player.dart';
-import 'package:sabadao/screens/matches/match_detail_screen.dart';
+import 'package:sabadao/routers/match_detail_router.dart';
 import 'package:sabadao/services/match_service.dart';
 import 'package:sabadao/models/match.dart';
 
@@ -98,12 +98,12 @@ class _UpcomingMatchesState extends State<UpcomingMatches> {
                   return MatchCard(
                     match: match,
                     rsvp: _rsvp[match.id],
-                    onRsvp: (attending) => _handleRsvp(match.id, attending),
+                    onRsvp: (attending) => _handleRsvp(match.id!, attending),
                     currentPlayerId: player!.id!,
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => MatchDetailScreen(match: match),
+                        builder: (_) => MatchDetailRouter(match: match),
                       ),
                     ),
                     showButtons: true,

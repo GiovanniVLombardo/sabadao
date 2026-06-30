@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sabadao/components/matches/match_card.dart';
 import 'package:sabadao/controllers/user_controller.dart';
 import 'package:sabadao/models/player.dart';
-import 'package:sabadao/screens/matches/match_detail_screen.dart';
+import 'package:sabadao/routers/match_detail_router.dart';
 import 'package:sabadao/services/match_service.dart';
 import 'package:sabadao/models/match.dart';
 
@@ -43,51 +43,57 @@ class _MatchesScreenState extends State<MatchesScreen> {
 
         final matches = snapshot.data ?? [];
 
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Padding(
-              padding: EdgeInsets.fromLTRB(16, 24, 16, 12),
-              child: Text(
-                'Próximas Partidas',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            if (matches.isEmpty)
-              const Padding(
-                padding: EdgeInsets.all(16),
-                child: Text(
-                  'Nenhuma partida agendada.',
-                  style: TextStyle(color: Colors.white54),
-                ),
-              )
-            else
-              ListView.separated(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                itemCount: matches.length,
-                separatorBuilder: (_, _) => const SizedBox(height: 12),
-                itemBuilder: (context, index) {
-                  final match = matches[index];
-                  return MatchCard(
-                    match: match,
-                    currentPlayerId: player!.id!,
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => MatchDetailScreen(match: match),
+        return Scaffold(
+          body: SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.fromLTRB(16, 24, 16, 12),
+                    child: Text(
+                      'Próximas Partidas',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
                       ),
                     ),
-                    showButtons: false,
-                  );
-                },
+                  ),
+                  if (matches.isEmpty)
+                    const Padding(
+                      padding: EdgeInsets.all(16),
+                      child: Text(
+                        'Nenhuma partida agendada.',
+                        style: TextStyle(color: Colors.white54),
+                      ),
+                    )
+                  else
+                    ListView.separated(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      itemCount: matches.length,
+                      separatorBuilder: (_, _) => const SizedBox(height: 12),
+                      itemBuilder: (context, index) {
+                        final match = matches[index];
+                        return MatchCard(
+                          match: match,
+                          currentPlayerId: player!.id!,
+                          onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => MatchDetailRouter(match: match),
+                            ),
+                          ),
+                          showButtons: false,
+                        );
+                      },
+                    ),
+                ],
               ),
-          ],
+            ),
+          ),
         );
       },
     );

@@ -1,16 +1,20 @@
 
 
 class Match {
-  final String id;
+  final String? id;
   final DateTime matchDate;
   final String status; // e.g., 'scheduled', 'ongoing', 'canceled', 'finished'
   final String location;
+  final int? team1Id;
+  final int? team2Id;
 
   Match({
-    required this.id,
+    this.id,
     required this.matchDate,
     required this.status,
     this.location = '',
+    this.team1Id,
+    this.team2Id,
   });
 
   factory Match.fromJson(Map<String, dynamic> json) {

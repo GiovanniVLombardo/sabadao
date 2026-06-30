@@ -39,6 +39,15 @@ class MatchService {
     return Match.fromJson(data);
   }
 
+  Future<void> insertMatchTeam({required String matchId, required int teamId}) async{
+    await _supabase
+    .from('match_teams')
+    .insert({
+      'match_id': matchId,
+      'team_id': teamId
+    });
+  }
+
   Future<Match> updateMatch({
     required String matchId,
     required DateTime matchDate,

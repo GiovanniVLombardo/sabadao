@@ -66,14 +66,14 @@ class _MatchCardState extends State<MatchCard> {
   }
 
   Future<void> _loadSpots() async {
-    final spots = await _attendanceService.getAvailableSpots(widget.match.id);
+    final spots = await _attendanceService.getAvailableSpots(widget.match.id!);
     if (mounted) setState(() => _availableSpots = spots);
   }
 
   Future<void> _loadRsvp() async {
     try {
       final rsvp = await _attendanceService.getPlayerRsvp(
-        matchId: widget.match.id,
+        matchId: widget.match.id!,
         playerId: widget.currentPlayerId,
       );
       if (mounted) {
@@ -93,7 +93,7 @@ class _MatchCardState extends State<MatchCard> {
 
     try {
       await _attendanceService.confirmPresence(
-        matchId: widget.match.id,
+        matchId: widget.match.id!,
         playerId: widget.currentPlayerId,
         isConfirmed: isConfirmed,
       );
@@ -106,7 +106,7 @@ class _MatchCardState extends State<MatchCard> {
   }
 
   void _refreshSpots() async {
-    final spots = await _attendanceService.getAvailableSpots(widget.match.id);
+    final spots = await _attendanceService.getAvailableSpots(widget.match.id!);
     if (mounted) setState(() => _availableSpots = spots);
   }
 

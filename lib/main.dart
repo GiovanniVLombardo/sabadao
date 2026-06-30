@@ -6,6 +6,7 @@ import 'package:sabadao/auth/auth_gate.dart';
 import 'package:sabadao/controllers/attendance_controller.dart';
 import 'package:sabadao/controllers/match_controller.dart';
 import 'package:sabadao/controllers/scout_controller.dart';
+import 'package:sabadao/controllers/team_controller.dart';
 import 'package:sabadao/controllers/user_controller.dart';
 import 'package:sabadao/screens/ranking/ranking_screen.dart';
 import 'package:sabadao/screens/settings/settings_screen.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => MatchController()),
         ChangeNotifierProvider(create: (_) => AttendanceController()),
         ChangeNotifierProvider(create: (_) => ScoutController()),
+        ChangeNotifierProvider(create: (_) => TeamController()),
       ],
       child: MaterialApp(
         title: 'Sabadão F. C.',

@@ -27,14 +27,17 @@ class MatchController extends ValueNotifier<List<Match>> {
   }
 
   Future<Match> createMatch({
-    required DateTime matchDate,
-    String location = '',
+    required Match match
   }) async {
-    final match = await _matchService.createMatch(
-      matchDate: matchDate,
-      location: location,
+    final _match = await _matchService.createMatch(
+      matchDate: match.matchDate,
+      location: match.location,
     );
-    value = [match, ...value];
+    if(match.team1Id != null && match.team2Id != null){
+      await _matchService.insertMatchTeam(matchId: _match.id!, teamId: match.team1Id!);
+      await _matchService.insertMatchTeam(matchId: _match.id!, teamId: match.team2Id!);
+    }
+    value = [_match, ...value];
     return match;
   }
 
